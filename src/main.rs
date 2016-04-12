@@ -4,17 +4,21 @@ extern crate playpen;
 use mars::{Bot, Response};
 use std::error::Error;
 
+fn process(msg: &str) -> String {
+    String::from("fn main() { println!(\"{:?}\", {") + msg.trim_left_matches("playbot:") + "}); }"
+}
+
 fn main() {
     Bot::new(env!("TOKEN"), |req| {
-        let res = playpen::eval(req.text.trim_left_matches("playbot:"));
+        let res = playpen::eval(process(&req.text).as_str());
 
         Response {
             username: Some("playbot"),
             text: match res {
-                Ok(playpen::Response { playpen_error: Some(err), .. }) => err,
-                Ok(playpen::Response { output: Some(out), .. }) => out,
-                Ok(playpen::Response { rustc: err, .. }) => err,
-                Err(e) => e.description().into(),
+                Ok(playpen::Response { playpen_error: Some(err), .. }) => format!(":fire: {}", err),
+                Ok(playpen::Response { output: Some(out), .. }) => format!(":cake:\n```\n{}\n```", out),
+                Ok(playpen::Response { rustc: err, .. }) => format!(":bomb:\n```\n{}\n```", err),
+                Err(e) => format!(":question: {}", e.description()),
             },
             icon_url: Some("http://www.rustacean.net/img/rustacean-orig-trans.png"),
         }
