@@ -7,6 +7,7 @@ use std::error::Error;
 fn process(msg: &str) -> String {
     String::from("fn main() { println!(\"{:?}\", {\n")
         + msg.trim_left_matches("playbot:")
+             .trim()
              .trim_matches('`')
         + "\n}); }"
 }
