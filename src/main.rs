@@ -5,7 +5,7 @@ use mars::{Bot, Response};
 use std::error::Error;
 
 fn process(msg: &str) -> String {
-    String::from("fn main() { println!(\"{:?}\", {") + msg.trim_left_matches("playbot:") + "}); }"
+    String::from("fn main() { println!(\"{:?}\", {\n") + msg.trim_left_matches("playbot:") + "\n}); }"
 }
 
 fn main() {
