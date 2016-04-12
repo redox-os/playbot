@@ -18,12 +18,5 @@ fn main() {
             },
             icon_url: Some("http://www.rustacean.net/img/rustacean-orig-trans.png"),
         }
-    }).init("127.0.0.1:80").unwrap();
-}
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-    }
+    }).init(env!("IP")).unwrap();
 }
