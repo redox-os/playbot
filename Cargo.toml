@@ -1,0 +1,10 @@
+[package]
+name = "playbot"
+version = "0.1.0"
+authors = ["Ticki <Ticki@users.noreply.github.com>"]
+
+[dependencies.mars]
+git = "https://github.com/Ticki/mars.git"
+
+[dependencies.playpen]
+git = "https://github.com/Ticki/playpen-rs.git"
