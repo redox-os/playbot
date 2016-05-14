@@ -8,6 +8,7 @@ fn process(msg: &str) -> String {
     String::from("fn main() { println!(\"{:?}\", {\n")
         + msg.trim_left_matches("playbot:")
              .trim()
+             .trim_right_matches("```rust")
              .trim_matches('`')
         + "\n}); }"
 }
@@ -17,14 +18,14 @@ fn main() {
         let res = playpen::eval(process(&req.text).as_str());
 
         Response {
-            username: Some("playbot"),
+            username: Some("playbot".into()),
             text: match res {
                 Ok(playpen::Response { playpen_error: Some(err), .. }) => format!(":fire: {}", err),
                 Ok(playpen::Response { output: Some(out), .. }) => format!(":cake:\n```\n{}\n```", out),
                 Ok(playpen::Response { rustc: err, .. }) => format!(":bomb:\n```\n{}\n```", err),
                 Err(e) => format!(":question: {}", e.description()),
-            },
-            icon_url: Some("http://www.rustacean.net/img/rustacean-orig-trans.png"),
+            }.into(),
+            icon_url: Some("http://www.rustacean.net/img/rustacean-orig-trans.png".into()),
         }
     }).init(env!("IP")).unwrap();
 }
