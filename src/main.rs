@@ -8,7 +8,7 @@ fn process(msg: &str) -> String {
     String::from("fn main() { println!(\"{:?}\", {\n")
         + msg.trim_left_matches("playbot:")
              .trim()
-             .trim_right_matches("```rust")
+             .trim_left_matches("```rust")
              .trim_matches('`')
         + "\n}); }"
 }
