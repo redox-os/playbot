@@ -25,7 +25,7 @@ fn main() {
                 Ok(playpen::Response { rustc: err, .. }) => format!(":bomb:\n```\n{}\n```", err),
                 Err(e) => format!(":question: {}", e.description()),
             }.into(),
-            icon_url: Some("http://www.rustacean.net/img/rustacean-orig-trans.png".into()),
+            icon_url: Some("http://www.rustacean.net/assets/rustacean-orig-trans.png".into()),
         }
     }).init(env!("IP")).unwrap();
 }
